@@ -65,16 +65,17 @@ class InternVLChatModel(PreTrainedModel):
         if language_model is not None:
             self.language_model = language_model
         else:
-            if config.llm_config.architectures[0] == 'LlamaForCausalLM':
-                self.language_model = LlamaForCausalLM(config.llm_config)
-            elif config.llm_config.architectures[0] == 'InternLM2ForCausalLM':
-                self.language_model = InternLM2ForCausalLM(config.llm_config)
-            elif config.llm_config.architectures[0] == 'Phi3ForCausalLM':
-                self.language_model = Phi3ForCausalLM(config.llm_config)
-            elif config.llm_config.architectures[0] == 'Qwen2ForCausalLM':
-                self.language_model = Qwen2ForCausalLM(config.llm_config)
-            else:
-                raise NotImplementedError(f'{config.llm_config.architectures[0]} is not implemented.')
+            self.llm_config = Qwen2Config(**llm_config)
+            # if config.llm_config.architectures[0] == 'LlamaForCausalLM':
+            #     self.language_model = LlamaForCausalLM(config.llm_config)
+            # elif config.llm_config.architectures[0] == 'InternLM2ForCausalLM':
+            #     self.language_model = InternLM2ForCausalLM(config.llm_config)
+            # elif config.llm_config.architectures[0] == 'Phi3ForCausalLM':
+            #     self.language_model = Phi3ForCausalLM(config.llm_config)
+            # elif config.llm_config.architectures[0] == 'Qwen2ForCausalLM':
+            #     self.language_model = Qwen2ForCausalLM(config.llm_config)
+            # else:
+            #     raise NotImplementedError(f'{config.llm_config.architectures[0]} is not implemented.')
 
         vit_hidden_size = config.vision_config.hidden_size
         llm_hidden_size = config.llm_config.hidden_size
