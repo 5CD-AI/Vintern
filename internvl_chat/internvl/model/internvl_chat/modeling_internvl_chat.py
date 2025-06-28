@@ -65,7 +65,7 @@ class InternVLChatModel(PreTrainedModel):
         if language_model is not None:
             self.language_model = language_model
         else:
-            self.llm_config = Qwen2Config(**llm_config)
+            self.language_model = Qwen2ForCausalLM(config.llm_config)
             # if config.llm_config.architectures[0] == 'LlamaForCausalLM':
             #     self.language_model = LlamaForCausalLM(config.llm_config)
             # elif config.llm_config.architectures[0] == 'InternLM2ForCausalLM':
